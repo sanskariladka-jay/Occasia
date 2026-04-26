@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export interface AuthRequest extends Request {
+export interface AuthRequest extends Request<any, any, any, any> {
   user?: {
     id: string;
     roles: string[];
@@ -15,11 +15,20 @@ export const authenticate = (
   res: Response,
   next: NextFunction
 ): void => {
-  const token = req.headers.authorization?.split(" ")[1];
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    res.status(401).json({
+      error: "No token provided"
+    });
+    return;
+  }
+
+  const token = authHeader.split(" ")[1];
 
   if (!token) {
     res.status(401).json({
-      error: "No token provided"
+      error: "Invalid token format"
     });
     return;
   }
@@ -41,7 +50,6 @@ export const authenticate = (
     res.status(401).json({
       error: "Invalid token"
     });
-    return;
   }
 };
 
