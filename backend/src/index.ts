@@ -1,34 +1,27 @@
 import dotenv from 'dotenv';
 dotenv.config({ override: true });
 
-import express from 'express';
-import cors from 'cors';
-import connectDB from './config/db';
+import mongoose from 'mongoose';
 
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
-import eventRoutes from './routes/eventRoutes';
-import collegeRoutes from './routes/collegeRoutes';
+const connectDB = async (): Promise<void> => {
+  try {
+    const mongoURI = process.env.MONGO_URI;
 
-// Initialize DB
-connectDB();
+    // Check if MongoDB URI exists
+    if (!mongoURI) {
+      throw new Error('MONGO_URI is missing in environment variables');
+    }
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+    // Connect to MongoDB
+    await mongoose.connect(mongoURI);
 
-app.use(cors());
-app.use(express.json());
+    console.log('MongoDB Connected Successfully');
+  } catch (error: any) {
+    console.error('MongoDB connection error:', error.message);
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/college', collegeRoutes);
+    // Exit process if DB connection fails
+    process.exit(1);
+  }
+};
 
-app.get('/', (req, res) => {
-  res.send('Occasia API is running...');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default connectDB;
