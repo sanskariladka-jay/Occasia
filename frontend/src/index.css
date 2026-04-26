@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Occasia — academic editorial design system. All HSL. */
+
+@layer base {
+  :root {
+    /* Surfaces */
+    --background: 38 33% 97%;
+    --foreground: 240 25% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 25% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 25% 14%;
+
+    /* Brand: deep indigo + warm gold */
+    --primary: 244 47% 24%;
+    --primary-foreground: 38 33% 97%;
+    --primary-glow: 252 62% 56%;
+
+    --accent: 36 78% 52%;
+    --accent-foreground: 240 25% 14%;
+
+    --secondary: 38 30% 92%;
+    --secondary-foreground: 244 47% 24%;
+
+    --muted: 38 25% 94%;
+    --muted-foreground: 240 10% 40%;
+
+    --destructive: 0 70% 48%;
+    --destructive-foreground: 38 33% 97%;
+
+    --success: 152 55% 35%;
+    --success-foreground: 38 33% 97%;
+
+    --warning: 36 90% 50%;
+    --warning-foreground: 240 25% 14%;
+
+    --info: 220 70% 50%;
+    --info-foreground: 38 33% 97%;
+
+    --border: 36 20% 85%;
+    --input: 36 20% 88%;
+    --ring: 244 47% 24%;
+
+    --radius: 0.875rem;
+    --transition-speed: 300ms;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(244 47% 18%) 0%, hsl(252 62% 36%) 60%, hsl(290 50% 42%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(36 90% 56%) 0%, hsl(28 85% 50%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(38 33% 97%) 0%, hsl(38 30% 92%) 100%);
+    --gradient-card: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(38 30% 96%) 100%);
+
+    /* Shadows */
+    --shadow-elegant: 0 20px 60px -20px hsl(244 47% 24% / 0.25);
+    --shadow-card: 0 2px 12px -4px hsl(244 47% 24% / 0.08), 0 1px 3px hsl(244 47% 24% / 0.04);
+    --shadow-glow: 0 0 60px hsl(252 62% 56% / 0.35);
+    --shadow-gold: 0 10px 30px -10px hsl(36 90% 50% / 0.45);
+
+    /* Motion */
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 244 40% 4%;
+    --foreground: 0 0% 100%;
+    
+    --card: 244 35% 8%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 244 35% 8%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 0 100% 65%; /* Electric Red */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 244 25% 12%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 244 25% 10%;
+    --muted-foreground: 0 0% 70%;
+    
+    /* Vibrant Pop Accents */
+    --accent: 0 100% 60%; /* Vibrant Red */
+    --accent-foreground: 0 0% 100%;
+    
+    --border: 0 100% 50% / 0.15;
+    --input: 244 30% 12%;
+    --ring: 0 100% 60%;
+
+    /* Dark Mode Gradients - High Energy */
+    --gradient-hero: linear-gradient(135deg, hsl(0 80% 10%) 0%, hsl(252 60% 12%) 60%, hsl(0 70% 15%) 100%);
+    --gradient-card: linear-gradient(160deg, hsl(244 35% 10%) 0%, hsl(0 40% 8%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(244 35% 8%) 0%, hsl(244 40% 4%) 100%);
+
+    /* Dark Mode Shadows - Vibrant Red Glow */
+    --shadow-elegant: 0 20px 60px -20px hsl(0 100% 50% / 0.15);
+    --shadow-card: 0 4px 20px -8px hsl(0 0% 0% / 0.6);
+    --shadow-glow: 0 0 50px hsl(0 100% 50% / 0.25);
+    --shadow-gold: 0 10px 30px -10px hsl(0 100% 50% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    transition: background-color var(--transition-speed) var(--transition-smooth), 
+                border-color var(--transition-speed) var(--transition-smooth), 
+                color var(--transition-speed) var(--transition-smooth), 
+                box-shadow var(--transition-speed) var(--transition-smooth),
+                transform var(--transition-speed) var(--transition-smooth);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight transition-colors duration-200;
+  }
+
+  /* Font Pop Animation */
+  .font-pop {
+    animation: font-pop-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  @keyframes font-pop-up {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}
+
+@layer utilities {
+  .text-gradient-hero {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .bg-gradient-soft {
+    background: var(--gradient-soft);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .no-transition, .no-transition * {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+@layer components {
+  .editorial-rule {
+    @apply h-px w-12 bg-foreground/30;
+  }
+}
