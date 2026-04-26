@@ -1,28 +1,30 @@
-import dotenv from 'dotenv';
-dotenv.config({ override: true });
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db";
 
-import mongoose from 'mongoose';
+dotenv.config();
 
-const connectDB = async (): Promise<void> => {
-  try {
-    const mongoURI = process.env.MONGO_URI;
+const app = express();
 
-    if (!mongoURI) {
-      throw new Error('MONGO_URI is missing in environment variables');
-    }
+app.use(cors());
+app.use(express.json());
 
-    await mongoose.connect(mongoURI);
+app.get("/", (req, res) => {
+  res.send("Backend running successfully");
+});
 
-    console.log('MongoDB Connected Successfully');
-  } catch (error: any) {
-    console.error('MongoDB connection error:', error.message);
+/*
+Connect MongoDB
+*/
+connectDB();
 
-    // Don't kill server immediately on Render
-    setTimeout(() => {
-      console.log("Retrying DB connection...");
-      connectDB();
-    }, 5000);
-  }
-};
+/*
+IMPORTANT for Render:
+must use process.env.PORT
+*/
+const PORT = process.env.PORT || 10000;
 
-export default connectDB;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

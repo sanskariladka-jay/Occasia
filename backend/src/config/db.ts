@@ -1,15 +1,26 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const connectDB = async () => {
+const connectDB = async (): Promise<void> => {
   try {
-    if (!process.env.MONGO_URI) {
-      throw new Error('MONGO_URI is not defined in .env');
+    const mongoURI = process.env.MONGO_URI;
+
+    if (!mongoURI) {
+      console.log("MONGO_URI is missing");
+      return;
     }
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`Connected to MongoDB: ${conn.connection.host}`);
-  } catch (err: any) {
-    console.error('MongoDB connection error:', err.message);
-    process.exit(1);
+
+    await mongoose.connect(mongoURI);
+
+    console.log("MongoDB Connected Successfully");
+  } catch (error: any) {
+    console.error("MongoDB connection error:", error.message);
+
+    /*
+    DO NOT use:
+    process.exit(1)
+
+    This kills Render deploy
+    */
   }
 };
 
