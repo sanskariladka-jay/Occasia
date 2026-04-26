@@ -1,17 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "rootDir": "./src",
+    "target": "ES6",
+    "module": "commonjs",
     "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./src",
     "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "forceConsistentCasingInFileNames": true
+  }
 }
